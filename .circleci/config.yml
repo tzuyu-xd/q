@@ -1,0 +1,16 @@
+version: 2.1
+jobs:
+  compile:
+   docker:
+      - image: ryujinxd/ubuntu:latest
+   steps:
+      - run:
+          command: |
+           git clone --depth=1 https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -b ${CIRCLE_BRANCH} .
+           bash .circleci/build.sh --clang
+
+workflows:
+  version: 2.1
+  cooking:
+    jobs:
+      - compile
